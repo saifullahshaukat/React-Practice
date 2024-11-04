@@ -19,13 +19,27 @@ export default function TextForm(props) {
     const newFont = font === "Arial" ? "Noto Sans" : "Arial";
     setFont(newFont);
   };
+  const clearText = () => {
+    let newText = "";
+    setText(newText);
+  };
+  const copyText = () => {
+    navigator.clipboard.writeText(text).then(() => {
+      alert("Text copied to clipboard!");
+    }).catch(err => {
+      console.error("Failed to copy text: ", err);
+    });
+  };
+  const removeExtraSpaces = () => {
+    
+  };
 
   const handleOnChange = (event) => {
     setText(event.target.value);
   };
 
 return (
-    <div>
+    <div className='container my-3' style={{color: props.mode === 'light' ? 'white' : 'black'}}>
         <h2>{props.heading}</h2>
         <div className="mb-3">
             <textarea
@@ -41,6 +55,15 @@ return (
             </button>
             <button className="btn btn-primary mx-1 my-3" onClick={handlelowClick}>
                 Convert To Lowercase
+            </button>
+            <button className="btn btn-primary mx-1 my-3" onClick={clearText}>
+                Clear Text
+            </button>
+            <button className="btn btn-primary mx-1 my-3" onClick={copyText}>
+                Copy Text
+            </button>
+            <button className="btn btn-primary mx-1 my-3" onClick={removeExtraSpaces}>
+                Remove Extra Spaces
             </button>
         </div>
 
